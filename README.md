@@ -1,111 +1,382 @@
-# C++ Multithreading
+# C++ Multithreading & Concurrency
 
-A structured set of **C++ multithreading notes**, covering concepts from beginner fundamentals to advanced concurrency, synchronization, atomics, the C++ memory model, lock-free programming, performance, debugging, and interview preparation.
+A structured set of notes and hands-on examples for learning **C++ multithreading and concurrency from beginner to advanced level**.
 
-The notes are written primarily for **C++17**, with **C++20 concurrency features** such as `std::jthread`, semaphores, latches, and barriers covered separately.
+The notes are focused on **C++17** for core interview preparation, with **C++20 concurrency features** covered where they are part of the syllabus.
 
-## Learning Goals
+---
 
-This repository is intended to help build a strong understanding of:
+## 📚 Learning Path
 
-* C++ threads and concurrency
-* Thread lifecycle and thread management
-* Race conditions and data races
-* Mutexes and locking
-* Deadlocks
-* Condition variables
-* Producer-consumer patterns
-* Futures, promises, and `std::async`
-* Atomic operations
-* Memory ordering
-* Advanced synchronization primitives
-* Thread pools
-* C++20 `std::jthread`
-* C++ memory model
-* Cache and hardware-level concepts
-* Lock-free programming
-* Concurrency design patterns
-* Performance optimization
-* Debugging and testing concurrent programs
-* C++ multithreading interview preparation
+The repository is organized into 13 levels covering **31 chapters**.
 
-## How to Use This Repository
+### Level 1 — Multithreading Fundamentals
 
-Follow the chapters in order.
+**Chapter 1: Why Multithreading?**
+- Process and thread
+- Process vs thread
+- Single-threaded vs multithreaded programs
+- Concurrency vs parallelism
+- CPU cores
+- Context switching
+- Thread scheduling
+- Benefits and drawbacks of multithreading
 
-Start with:
+**Chapter 2: Creating Threads with `std::thread`**
+- Creating threads
+- Thread functions
+- Lambdas
+- Passing arguments
+- `join()`, `detach()`, `joinable()`
+- Thread lifetime
+- `std::this_thread`
+- Thread IDs
 
-```text
-01-multithreading-fundamentals
-        ↓
-02-thread-safety
-        ↓
-03-synchronization
-        ↓
-04-concurrency-utilities
-        ↓
-05-atomics
-        ↓
-06-advanced-synchronization
-        ↓
-07-thread-pools
-        ↓
-08-cpp-memory-model
-        ↓
-09-lock-free-programming
-        ↓
-10-performance
-        ↓
-11-concurrency-patterns
-        ↓
-12-debugging-testing
-        ↓
-13-interview-preparation
-```
+**Chapter 3: Passing Data to Threads**
+- Passing by value
+- Passing by reference
+- `std::ref`, `std::cref`
+- Pointers and objects
+- Lambdas
+- `std::move`
+- Lifetime and dangling-reference problems
 
-The directory contains practical implementations to reinforce the concepts.
+---
 
-## Recommended Learning Approach
+### Level 2 — Thread Safety & Race Conditions
 
-For each topic, focus on four questions:
+**Chapter 4: Race Conditions**
+- Shared data
+- Race conditions
+- Data races
+- Undefined behavior
+- Read/read, read/write, write/write access
+- Thread-safe vs non-thread-safe code
 
-1. **What problem does it solve?**
-2. **How does it work?**
-3. **What can go wrong?**
-4. **When should it be used?**
+**Chapter 5: Mutex**
+- `std::mutex`
+- `lock()` / `unlock()`
+- Critical sections
+- Mutual exclusion
+- Contention
+- Deadlock introduction
 
-The goal is not just to memorize APIs such as `std::mutex` or `std::condition_variable`, but to understand the concurrency problems they solve.
+**Chapter 6: RAII-Based Locking**
+- `std::lock_guard`
+- `std::unique_lock`
+- `std::scoped_lock`
+- Deferred locking
+- `try_to_lock`
+- `adopt_lock`
+- Exception safety
 
-## C++ Versions
+---
 
-### C++17
+### Level 3 — Synchronization
 
-The core of the repository uses C++17 concepts and APIs, including:
+**Chapter 7: Deadlocks**
+- Deadlock
+- Four conditions for deadlock
+- Lock ordering
+- Nested locks
+- `std::lock`
+- `std::scoped_lock`
+- `std::try_lock`
+- Deadlock prevention
 
-* `std::thread`
-* `std::mutex`
-* `std::lock_guard`
-* `std::unique_lock`
-* `std::condition_variable`
-* `std::future`
-* `std::promise`
-* `std::async`
-* `std::packaged_task`
-* `std::atomic`
-* `std::shared_mutex`
+**Chapter 8: Condition Variables**
+- `std::condition_variable`
+- `wait()`
+- `notify_one()`
+- `notify_all()`
+- Predicates
+- Spurious wakeups
+- Producer-consumer synchronization
 
-### C++20
+**Chapter 9: Producer-Consumer**
+- Shared queues
+- Mutex + condition variable
+- Producers and consumers
+- Multiple producers
+- Multiple consumers
+- Shutdown mechanisms
 
-C++20-specific topics are covered where applicable:
+---
 
-* `std::jthread`
-* `std::stop_token`
-* `std::counting_semaphore`
-* `std::binary_semaphore`
-* `std::latch`
-* `std::barrier`
+### Level 4 — C++ Concurrency Utilities
 
-## Repository Structure
+**Chapter 10: Futures and Promises**
+- `std::future`
+- `std::promise`
+- `get()`
+- `wait()`
+- `wait_for()`
+- `wait_until()`
+- Exception propagation
+
+**Chapter 11: `std::async`**
+- `std::async`
+- `std::launch::async`
+- `std::launch::deferred`
+- Futures returned by `async`
+- `async` vs `std::thread`
+
+**Chapter 12: Packaged Tasks**
+- `std::packaged_task`
+- Callable → future
+- `packaged_task` vs `promise`
+- Use in thread pools
+
+---
+
+### Level 5 — Atomic Programming
+
+**Chapter 13: Atomic Variables**
+- `std::atomic`
+- Atomic reads/writes
+- Atomic increment/decrement
+- `load()`
+- `store()`
+- `exchange()`
+- Compare-and-exchange
+
+**Chapter 14: Memory Ordering**
+- Memory ordering
+- Sequential consistency
+- `memory_order_seq_cst`
+- `memory_order_relaxed`
+- Acquire/release
+- `memory_order_acq_rel`
+- `memory_order_consume`
+- Happens-before
+- Synchronizes-with
+
+---
+
+### Level 6 — Advanced Synchronization
+
+**Chapter 15: Reader-Writer Synchronization**
+- `std::shared_mutex`
+- `std::shared_lock`
+- Multiple readers
+- Single writer
+- Reader-writer problem
+- Writer starvation
+
+**Chapter 16: Semaphores (C++20)**
+- `std::counting_semaphore`
+- `std::binary_semaphore`
+- `acquire()`
+- `release()`
+- `try_acquire()`
+- Mutex vs condition variable vs semaphore
+
+**Chapter 17: Latches and Barriers (C++20)**
+- `std::latch`
+- `std::barrier`
+- One-time synchronization
+- Reusable synchronization
+- Phase-based synchronization
+
+---
+
+### Level 7 — Thread Pools & Task-Based Concurrency
+
+**Chapter 18: Thread Pool**
+- Worker threads
+- Task queues
+- Task submission
+- Worker loop
+- Shutdown
+- Graceful shutdown
+- Task synchronization
+
+**Chapter 19: C++20 `std::jthread`**
+- `std::jthread`
+- Automatic joining
+- `stop_token`
+- `stop_source`
+- Cooperative cancellation
+- `stop_callback`
+- `std::thread` vs `std::jthread`
+
+---
+
+### Level 8 — C++ Memory Model
+
+**Chapter 20: C++ Memory Model**
+- Objects and memory locations
+- Visibility
+- Compiler and CPU reordering
+- Cache
+- Cache coherence
+- Happens-before
+- Synchronizes-with
+- Data races
+- Atomicity
+- Visibility vs ordering
+
+**Chapter 21: Hardware-Level Concepts**
+- CPU cores
+- L1/L2/L3 caches
+- Cache lines
+- Cache coherence
+- False sharing
+- Context switching
+- Hyper-threading / SMT
+- Memory barriers/fences
+- NUMA basics
+
+---
+
+### Level 9 — Lock-Free & Advanced Atomics
+
+**Chapter 22: Lock-Free Programming**
+- Lock-free vs wait-free
+- Atomic operations
+- CAS
+- Spinlocks
+- Atomic flags
+- Lock-free counters
+- Lock-free queues
+- ABA problem
+- Memory reclamation
+
+**Chapter 23: Atomic Smart Pointers & Advanced Techniques**
+- `std::atomic<std::shared_ptr<T>>`
+- Atomic ownership
+- Safe publication
+- Object lifetime under concurrency
+- Hazard pointers
+- Epoch-based reclamation
+
+---
+
+### Level 10 — Performance & Scalability
+
+**Chapter 24: Multithreading Performance**
+- Thread creation overhead
+- Synchronization overhead
+- Lock contention
+- CPU utilization
+- Throughput
+- Latency
+- Scalability
+- Amdahl's Law
+- Granularity
+- Work partitioning
+- Thread affinity
+- Oversubscription
+
+**Chapter 25: False Sharing & Cache Optimization**
+- Cache lines
+- False sharing
+- Padding
+- `alignas`
+- Data locality
+- Structure layout
+- Contiguous data
+- Avoiding unnecessary synchronization
+
+---
+
+### Level 11 — Real-World Concurrency Patterns
+
+**Chapter 26: Common Concurrency Patterns**
+- Producer-consumer
+- Thread pool
+- Pipeline
+- Work queue
+- Fork-join
+- Parallel reduction
+- Reader-writer
+- Barrier synchronization
+- Task parallelism
+- Data parallelism
+- Active object
+- Future/promise pattern
+
+**Chapter 27: Thread-Safe Design**
+- Thread-safe classes
+- Immutable objects
+- Shared ownership
+- Ownership transfer
+- Protecting class invariants
+- Thread-safe singleton
+- Double-checked locking
+- Initialization-order issues
+- Static initialization guarantees
+- Concurrent API design
+
+---
+
+### Level 12 — Debugging & Testing Concurrent Code
+
+**Chapter 28: Debugging Concurrent Programs**
+- Debugging multiple threads
+- Thread IDs
+- Breakpoints
+- Deadlock debugging
+- Race-condition debugging
+- Logging from multiple threads
+- Core dumps
+- Thread dumps
+
+**Chapter 29: Sanitizers & Tools**
+- ThreadSanitizer
+- AddressSanitizer
+- UndefinedBehaviorSanitizer
+- GDB
+- Visual Studio debugger
+- Linux `perf`
+- CPU profiling
+- Concurrency stress testing
+
+---
+
+### Level 13 — Advanced Interview Preparation
+
+**Chapter 30: C++ Multithreading Interview Questions**
+- Process vs thread
+- Concurrency vs parallelism
+- Race condition
+- Data race
+- Mutex
+- Locking mechanisms
+- Deadlocks
+- Condition variables
+- Producer-consumer
+- Atomics
+- CAS
+- Memory ordering
+- Futures/promises
+- `async`
+- Thread pools
+- `jthread`
+- Semaphores
+- `shared_mutex`
+- False sharing
+- Cache coherence
+- Lock-free programming
+
+**Chapter 31: Multithreading Coding Problems**
+- Thread-safe counter
+- Producer-consumer queue
+- Thread-safe queue
+- Thread-safe singleton
+- Thread pool
+- Parallel sum
+- Parallel matrix processing
+- Reader-writer system
+- Bounded blocking queue
+- Rate limiter
+- Task scheduler
+- Lock-free stack
+- Lock-free queue
+
+---
+
+## 📁 Repository Structure
 
 ```text
 cpp-multithreading/
@@ -152,17 +423,24 @@ cpp-multithreading/
 ├── 09-lock-free-programming/
 │   ├── 01-lock-free.md
 │   ├── 02-cas.md
-│   └── 03-aba-problem.md
+│   ├── 03-aba-problem.md
+│   └── 04-advanced-atomic-techniques.md
 │
 ├── 10-performance/
 │   ├── 01-performance.md
 │   └── 02-cache-false-sharing.md
 │
 ├── 11-concurrency-patterns/
+│   ├── 01-common-concurrency-patterns.md
+│   └── 02-thread-safe-design.md
 │
 ├── 12-debugging-testing/
+│   ├── 01-debugging-concurrent-programs.md
+│   └── 02-sanitizers-and-tools.md
 │
 ├── 13-interview-preparation/
+│   ├── 01-interview-questions.md
+│   └── 02-coding-problems.md
 │
 └── projects/
     ├── thread-safe-queue/
@@ -170,119 +448,168 @@ cpp-multithreading/
     └── thread-pool/
 ```
 
-## Practical Projects
+---
 
-The `projects/` directory contains implementations that apply concepts from the notes.
+## 🎯 Goals
 
-### Thread-Safe Queue
+By completing this repository, you should be able to:
 
-A queue designed for concurrent producers and consumers.
-
-Concepts:
-
-* Mutex
-* Condition variable
-* Thread synchronization
-* Safe access to shared data
-
-### Producer-Consumer
-
-A practical implementation of the producer-consumer pattern.
-
-Concepts:
-
-* Shared queue
-* `std::mutex`
-* `std::condition_variable`
-* Multiple producers
-* Multiple consumers
-* Graceful shutdown
-
-### Thread Pool
-
-A reusable pool of worker threads that executes submitted tasks.
-
-Concepts:
-
-* Worker threads
-* Task queue
-* Mutex
-* Condition variable
-* Futures
-* Task management
-* Graceful shutdown
-
-## Important Concepts
-
-The repository gradually progresses from simple thread creation:
-
-```cpp
-std::thread t(task);
-t.join();
-```
-
-to synchronization:
-
-```cpp
-std::lock_guard<std::mutex> lock(mutex);
-```
-
-then condition-based synchronization:
-
-```cpp
-condition_variable.wait(lock, predicate);
-```
-
-and eventually advanced atomic and lock-free techniques:
-
-```cpp
-std::atomic<int> counter;
-```
-
-The goal is to understand **why each mechanism is needed**, not just how to use its syntax.
-
-## Interview Preparation
-
-The final section focuses on commonly asked C++ multithreading topics, including:
-
-* Process vs thread
-* Concurrency vs parallelism
-* Race condition vs data race
-* Mutex
-* `lock_guard` vs `unique_lock`
-* Deadlock
-* Condition variables
-* Producer-consumer
-* Atomic operations
-* Compare-and-swap
-* Memory ordering
-* Futures and promises
-* `std::async`
-* Thread pools
-* `std::jthread`
-* Semaphores
-* Cache coherence
-* False sharing
-* Lock-free programming
-
-## Revision Philosophy
-
-These notes are intended as a **long-term reference and revision resource**.
-
-The focus is on:
-
-* Clear explanations
-* Small C++ examples
-* Important rules
-* Common mistakes
-* Comparisons between related concepts
-* Interview-oriented points
-* Practical implementations
-
-Complex topics are introduced gradually so that advanced concepts build on the fundamentals.
+- Understand how C++ threads work internally at a practical level
+- Write and manage multithreaded C++ programs
+- Identify race conditions and data races
+- Use mutexes and RAII-based locking correctly
+- Design producer-consumer systems
+- Use condition variables effectively
+- Understand futures, promises, `async`, and packaged tasks
+- Use atomic operations and understand memory ordering
+- Work with C++20 synchronization primitives
+- Build a basic thread pool
+- Understand the C++ memory model
+- Understand lock-free programming concepts
+- Identify performance problems such as contention and false sharing
+- Design thread-safe classes and APIs
+- Debug and test concurrent programs
+- Solve common C++ multithreading interview problems
 
 ---
 
-**Language:** C++17 / C++20
-**Focus:** Multithreading, Concurrency & Parallel Programming
-**Purpose:** Learning, Revision, Interview Preparation & Practical Development
+## 🛠️ Language Standard
+
+### Primary
+- **C++17**
+
+### C++20 Features Covered
+- `std::counting_semaphore`
+- `std::binary_semaphore`
+- `std::latch`
+- `std::barrier`
+- `std::jthread`
+- `std::stop_token`
+- `std::stop_source`
+- `std::stop_callback`
+
+Core interview preparation remains centered around **C++17**, while C++20 concurrency features are included where specified in the syllabus.
+
+---
+
+## 📌 Recommended Study Order
+
+Follow the repository from **Level 1 → Level 13**.
+
+The progression is intentional:
+
+```text
+Threads
+   ↓
+Thread Safety
+   ↓
+Synchronization
+   ↓
+Concurrency Utilities
+   ↓
+Atomics
+   ↓
+Advanced Synchronization
+   ↓
+Thread Pools
+   ↓
+Memory Model
+   ↓
+Lock-Free Programming
+   ↓
+Performance
+   ↓
+Concurrency Patterns
+   ↓
+Debugging & Testing
+   ↓
+Interview Preparation
+```
+
+Do not skip the fundamentals. Topics such as **mutexes, condition variables, atomics, memory ordering, and the C++ memory model** form the foundation for the advanced chapters.
+
+---
+
+## 💻 Practice Projects
+
+The `projects/` directory contains larger implementations that combine concepts from multiple chapters.
+
+### Thread-Safe Queue
+Practice:
+- Mutex
+- Condition variable
+- RAII locking
+- Thread safety
+- Shutdown
+
+### Producer-Consumer
+Practice:
+- Shared queue
+- Producers
+- Consumers
+- Condition variables
+- Synchronization
+
+### Thread Pool
+Practice:
+- Worker threads
+- Task queue
+- Condition variables
+- Futures/tasks
+- Graceful shutdown
+
+---
+
+## 🚀 Repository Philosophy
+
+These notes are intended for:
+
+- **Learning**
+- **Revision**
+- **C++ interview preparation**
+- **Hands-on implementation**
+
+The focus is on understanding **why** concurrency mechanisms are needed, **how** they work, and **when** to use them rather than memorizing APIs.
+
+The repository deliberately stays within the defined **31-chapter multithreading/concurrency syllabus**.
+
+---
+
+## 📖 Notes Format
+
+Each topic generally follows this structure:
+
+1. Concept
+2. Why it is needed
+3. Syntax/API
+4. Simple example
+5. Important behavior
+6. Common mistakes
+7. Interview points
+8. Key takeaways
+
+Examples use **C++17** unless the topic specifically requires a **C++20** feature.
+
+---
+
+## ⭐ Progress
+
+- [ ] Level 1 — Multithreading Fundamentals
+- [ ] Level 2 — Thread Safety & Race Conditions
+- [ ] Level 3 — Synchronization
+- [ ] Level 4 — C++ Concurrency Utilities
+- [ ] Level 5 — Atomic Programming
+- [ ] Level 6 — Advanced Synchronization
+- [ ] Level 7 — Thread Pools & Task-Based Concurrency
+- [ ] Level 8 — C++ Memory Model
+- [ ] Level 9 — Lock-Free & Advanced Atomics
+- [ ] Level 10 — Performance & Scalability
+- [ ] Level 11 — Real-World Concurrency Patterns
+- [ ] Level 12 — Debugging & Testing
+- [ ] Level 13 — Interview Preparation
+
+---
+
+## 📄 License
+
+This repository is intended for personal learning, revision, and interview preparation.
